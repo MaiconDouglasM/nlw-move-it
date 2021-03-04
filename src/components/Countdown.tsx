@@ -1,5 +1,6 @@
-import { useState, useEffect, useContext } from 'react';
+import { useContext } from 'react';
 import { CountdownContext } from '../contexts/CountdownContext';
+import { ThemeContext } from '../contexts/ThemeContext';
 import styles from '../styles/components/Countdown.module.css';
 
 
@@ -13,13 +14,15 @@ export function Countdown() {
         startCountdown, 
         resetCountdown
     } = useContext(CountdownContext);
+    const{isActiveDark} =useContext(ThemeContext);
+
 
     const [minuteLeft, minuteRight] = String(minutes).padStart(2, '0').split('');
     const [secondLeft, secondRight] = String(seconds).padStart(2, '0').split('');
    
     return (
         <div>
-            <div className={styles.countdownContainer}>
+            <div className={isActiveDark?styles.countdownContainerDark:styles.countdownContainer}>
                 <div>
                     <span>{minuteLeft}</span>
                     <span>{minuteRight}</span>
@@ -34,7 +37,7 @@ export function Countdown() {
             {hasFinished ? (
                 <button
                     disabled
-                    className={styles.countdownButton}
+                    className={isActiveDark?styles.countdownButtonDark:styles.countdownButton}
                 >
                     Ciclo encerrado
                 </button>
@@ -44,7 +47,7 @@ export function Countdown() {
                         {isActive ? (
                             <button
                                 type="button"
-                                className={`${styles.countdownButton} ${styles.countdownButtonActive}`}
+                                className={`${isActiveDark?styles.countdownButtonDark:styles.countdownButton} ${isActiveDark?styles.countdownButtonActiveDark:styles.countdownButtonActive}`}
                                 onClick={resetCountdown}
                             >
                                 Abandonar ciclo
@@ -52,7 +55,7 @@ export function Countdown() {
                         ) : (
                                 <button
                                     type="button"
-                                    className={styles.countdownButton}
+                                    className={isActiveDark?styles.countdownButtonDark:styles.countdownButton}
                                     onClick={startCountdown}
                                 >
                                     Iniciar um ciclo

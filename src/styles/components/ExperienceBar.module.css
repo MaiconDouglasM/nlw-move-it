@@ -24,4 +24,36 @@ span.currentExperience {
   position: absolute;
   top: 12px;
   transform: translateX(-50%);
+
+}
+/* Dark*/
+
+.experienceBarDark {
+  display: flex;
+  align-items: center;
+}
+.experienceBarDark span {
+  font-size: 1rem;
+  color: var(--dark-text);
+}
+.experienceBarDark > div {
+  flex: 1;
+  height: 4px;
+  border-radius: 4px;
+  background: var(--gray-line);
+  margin: 0 1.5rem;
+  position: relative;
+}
+
+.experienceBarDark > div > div {
+  height: 4px;
+  border-radius: 4px;
+  background: var(--green);
+}
+
+span.currentExperienceDark {
+  position: absolute;
+  color: var(--dark-text);
+  top: 12px;
+  transform: translateX(-50%);
 }

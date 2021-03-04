@@ -1,11 +1,13 @@
-import { useContext } from 'react';
+import React, { useContext } from 'react';
 import { ChallengesContext } from '../contexts/ChallengesContext';
 import { CountdownContext } from '../contexts/CountdownContext';
+import { ThemeContext } from '../contexts/ThemeContext';
 import styles from '../styles/components/ChallengeBox.module.css';
 
 export function ChallengeBox() {
     const {activeChallenge, resetChallenge, completChallenge} = useContext(ChallengesContext);
     const {resetCountdown} = useContext(CountdownContext);
+    const {isActiveDark} = useContext(ThemeContext);
 
     function handleChallengeSucceeded(){
         completChallenge();
@@ -17,9 +19,9 @@ export function ChallengeBox() {
     }
 
     return (
-        <div className={styles.challengeBoxContainer}>
+        <div className={isActiveDark?styles.challengeBoxContainerDark:styles.challengeBoxContainer}>
            {activeChallenge ?( 
-               <div className={styles.challengeActive}>
+               <div className={isActiveDark ? styles.challengeActiveDark : styles.challengeActive}>
                    <header>Ganhe {activeChallenge.amount} xp</header>
                    <main>
                        <img src={`icons/${activeChallenge.type}.svg`} alt=""/>
@@ -29,14 +31,14 @@ export function ChallengeBox() {
                    <footer>
                        <button 
                         type="button"
-                        className={styles.challengeFailedButton}
+                        className={isActiveDark ? styles.challengeFailedButtonDark:styles.challengeFailedButton}
                         onClick={handleChallengeFailed}
                        >
                            Falhei
                         </button>
                        <button 
                         type="button"
-                        className={styles.challengeSucceededButton}
+                        className={isActiveDark ? styles.challengeSucceededButtonDark:styles.challengeSucceededButton}
                         onClick={handleChallengeSucceeded}
                        >
                            Completei
@@ -44,7 +46,7 @@ export function ChallengeBox() {
                    </footer>
                </div>
             ):(
-            <div className={styles.challengeNotActive}>
+            <div className={isActiveDark ?styles.challengeNotActiveDark:styles.challengeNotActive}>
                 <strong>Inicie um ciclo para receber desafios a serem completados</strong>
                 <p>
                     <img src="icons/level-up.svg" alt="Level UP" />
